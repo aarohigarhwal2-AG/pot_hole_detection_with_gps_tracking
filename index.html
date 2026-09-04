@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart India Hackathon: Pothole Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>body { margin: 0; } #map { height: 100vh; width: 100%; }</style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        // Center the map near Bhilai/Raipur
+        var map = L.map('map').setView([21.1938, 81.3509], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        fetch('map_data.json')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(pothole => {
+                    var marker = L.marker([pothole.Latitude, pothole.Longitude]).addTo(map);
+
+                    // Display the YOLO annotated image inside the map pin popup
+                    var popupHtml = `
+                        <b>Confidence:</b> ${(pothole.Confidence * 100).toFixed(1)}%<br>
+                        <img src="${pothole.Image}" width="250px" style="margin-top:10px; border-radius:4px;">
+                    `;
+                    marker.bindPopup(popupHtml);
+                });
+            });
+    </script>
+</body>
+</html>

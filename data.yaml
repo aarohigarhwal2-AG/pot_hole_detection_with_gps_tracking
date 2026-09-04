@@ -1,0 +1,36 @@
+# -----------------------------------------------------------------------------
+# Dataset config for training on the BharatPothole dataset with YOLOv8/YOLO11.
+#
+# BharatPothole (like most pothole datasets on Roboflow/Kaggle) is usually
+# distributed either already in YOLO format (images/ + labels/ folders with
+# train/valid/test splits) or in COCO/Pascal-VOC format that needs conversion.
+#
+# STEP 1: Download the dataset and arrange it like this:
+#
+# bharat_pothole/
+# ├── train/
+# │   ├── images/   *.jpg
+# │   └── labels/   *.txt   (YOLO format: class cx cy w h, normalized 0-1)
+# ├── valid/
+# │   ├── images/
+# │   └── labels/
+# └── test/
+#     ├── images/
+#     └── labels/
+#
+# If your download is in COCO JSON or Pascal VOC XML, use the small converter
+# script `convert_to_yolo.py` included in this project first.
+#
+# STEP 2: Edit the `path` below to point at wherever you extracted it.
+# -----------------------------------------------------------------------------
+
+path: ./bharat_pothole   # root dir containing train/valid/test
+train: train/images
+val: valid/images
+test: test/images
+
+# Most pothole datasets are single-class. If BharatPothole has more classes
+# (e.g. pothole, crack, manhole), add them here in the same order as the
+# class IDs used in the label .txt files.
+names:
+  0: pothole

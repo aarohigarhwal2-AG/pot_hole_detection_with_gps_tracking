@@ -1,0 +1,10 @@
+venv/
+.idea/
+__pycache__/
+*.pyc
+the road dataset/
+runs/
+test_photos/
+labels.cache
+public/*.jpg
+public/map_data.json
